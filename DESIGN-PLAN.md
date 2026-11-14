@@ -76,7 +76,7 @@ CI runs `check`, so the table can't silently break the rules.
 | D02 | Core loop (minute / hour / planet) | D01 | locked |
 | D03 | Pressure: danger, survival, combat or none | D01, D02 | locked |
 | D04 | Scale and pacing targets | D01, D02 | locked |
-| D05 | World structure | D01, D04 | draft |
+| D05 | World structure | D01, D04 | locked |
 | D06 | Materials and property model | D01 | draft |
 | D07 | Resources and their distribution | D05, D06 | open |
 | D08 | Planet parameters and constraints | D03, D05, D06 | draft |
@@ -201,12 +201,25 @@ can be locked.
     skipping means remote bases fast-forward as rates (D20); co-op needs a rule for it (D21).
 
 #### D05. World structure
-- **Draft** (DESIGN.md §5): galaxy → systems → planets/moons, all from one seed, generated near
-  the player. Start on an Earth-like planet in the home system.
-- **Open:** Real-scale or compressed planets (Astroneer-small vs huge)? How many planets per
-  system? Moons, asteroid belts, gas giants (stations only)? Is the starting planet always
-  Earth-like? Per R7, planet parameters follow from star type and orbit (the prototype still
-  rolls temperature per planet kind; update it once D05/D08 are decided).
+- **Decision (locked 2026-11-14):**
+  - Galaxy → star systems → stars, planets, moons, asteroid belts; all from one seed, generated
+    near the player.
+  - **Physics first (R7):** the star's type sets brightness and the habitable zone; planet kind
+    follows from orbit distance and mass (hot rocky inside, ice worlds and gas giants beyond the
+    frost line); temperature from distance + atmosphere. Planets really orbit, so positions,
+    travel times and launch windows change over time.
+  - **Medium-size planets:** several km across; vehicles needed for long distances, curvature
+    visible from height; big enough for logistics, small enough to generate and stream on
+    modest hardware (R8).
+  - **Home system size varies per seed**, roughly 6–12 places including moons.
+  - Gas giants have no surface (orbital stations only); moons and asteroids are places with
+    resources. Other star types (e.g. red dwarfs with tidally locked planets) come with
+    interstellar travel.
+  - **Start:** always an Earth-like planet, livable without a suit. Optional **hard start**
+    setting: begin on a harsher planet instead.
+  - The shelter (main hub, D02) is the safe place: fresh air, the player regenerates there.
+    The starting suit protects only a little (D15).
+  - The prototype still rolls temperature per planet kind; update it to the physics model.
 - **Lock when:** the hierarchy and rough sizes are fixed.
 
 ### Phase B: Progression (tested by the generator, milestone 0)
@@ -284,6 +297,8 @@ can be locked.
   hand crafting vs machines only.
 - **Input from D03:** the suit is the player's survival system (temperature, air, radiation
   limits); oxygen level changes movement.
+- **Input from D05:** the starting suit barely protects, but a little; the shelter/hub is where
+  the player breathes freely and regenerates.
 
 #### D16. Travel between planets and systems
 - **Open:** Rockets built in the factory? Launch pads? Ships the player flies? Cutscene travel?
@@ -358,6 +373,7 @@ can be locked.
 | 2026-11-14 | D03 | Locked: environment is the enemy, no combat, player can die, oxygen levels, weather damages exposed machines only | - | - |
 | 2026-11-14 | D03 | Added: weather damages but never destroys; machines get repaired | Answered open point | none (D04+ not locked yet) |
 | 2026-11-14 | D04 | Locked: length from content, demand grows with distance, space after real progress, 1–2 h days, skippable travel | - | - |
+| 2026-11-14 | D05 | Locked: physics-derived systems, medium planets, 6–12 places, Earth-like start + optional hard start | - | - |
 
 ## 5. Parking lot
 
