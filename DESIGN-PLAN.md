@@ -74,7 +74,7 @@ CI runs `check`, so the table can't silently break the rules.
 |---|---|---|---|
 | D01 | Pillars and player fantasy | - | locked |
 | D02 | Core loop (minute / hour / planet) | D01 | locked |
-| D03 | Pressure: danger, survival, combat or none | D01, D02 | open |
+| D03 | Pressure: danger, survival, combat or none | D01, D02 | locked |
 | D04 | Scale and pacing targets | D01, D02 | draft |
 | D05 | World structure | D01, D04 | draft |
 | D06 | Materials and property model | D01 | draft |
@@ -163,12 +163,22 @@ can be locked.
 #### D03. Pressure
 - **Question:** Is there danger (hostile environment, creatures, combat), survival meters, or
   pure building?
-- **Open:** Options: (a) none, pure sandbox; (b) environmental only (temperature, atmosphere,
-  radiation, storms: the planet is the enemy); (c) creatures/combat. Option (b) fits "planets
-  as constraints" without the cost of AI and combat; strong candidate.
-- **Affects:** planet constraints, player tools, needs chains (a cold planet only matters if cold
-  can hurt you or your machines).
-- **Lock when:** chosen, with the list of what can fail (player, machines, both).
+- **Decision (locked 2026-11-14): the planet is the enemy.**
+  - **No creatures, no combat** (hard to generate, hard to animate, heavy on weak PCs). Parked.
+  - **The player can die** from the environment: heat, cold, toxic air, radiation, pressure,
+    lack of oxygen. Suits and gear raise the limits; different planets need different materials
+    for surviving as well as for building.
+  - **Oxygen level varies per planet** and affects the player even where it's breathable: low
+    oxygen slows you down; high oxygen boosts you. (R7: might also raise fire risk; see D08.)
+  - **Death is mild:** respawn at the hub, go back for the dropped backpack.
+  - **No hunger or thirst** in the normal game (parked for an ultra-hardcore mode).
+  - **Machines never break on their own.** Only weather damages them, and only when they stand
+    outside: a machine inside a building is safe. Walls and buildings themselves are not damaged.
+    So weather pushes the player to enclose factories, but the enclosure isn't a chore.
+  - **Weather and events come from the planet type** and can be planned for (forecast, seasons,
+    long nights), no random punishment. Examples: sandstorms on desert planets, ice falling on
+    ice planets, giant waves on ocean planets (per R7, from tides of a close moon or giant).
+- **Open (for D08/D17):** what happens to a weather-broken machine (repair with parts? rebuild?).
 
 #### D04. Scale and pacing targets
 - **Draft:** 150+ h on the starting planet, 30–80 h per later planet, thousands of hours in the
@@ -210,6 +220,9 @@ can be locked.
   Constraints change the factory (no water → no water cooling, long night → no solar alone…).
 - **Open:** Full parameter list; which constraints affect the player vs only machines (D03);
   how many constraints per planet (2–3 strong ones beat 10 weak ones).
+- **Input from D03:** add oxygen level (player speed/stamina, maybe fire risk) and weather
+  (type, strength, frequency, forecast) to the planet parameters. Weather damages only exposed
+  machines.
 - **Lock when:** every constraint has a mechanical effect, written down.
 
 #### D09. Recipe / tech graph rules
@@ -258,6 +271,8 @@ can be locked.
 #### D15. Player abilities and tools
 - **Open:** Movement (jetpack? vehicles?), mining tool, scanner, suit upgrades, inventory size,
   hand crafting vs machines only.
+- **Input from D03:** the suit is the player's survival system (temperature, air, radiation
+  limits); oxygen level changes movement.
 
 #### D16. Travel between planets and systems
 - **Open:** Rockets built in the factory? Launch pads? Ships the player flies? Cutscene travel?
@@ -326,6 +341,7 @@ can be locked.
 | 2026-11-14 | - | Plan created | - | - |
 | 2026-11-14 | D01 | Locked: 4 ranked pillars, player fantasy; added rule R6 (art from systems) | First decision | - |
 | 2026-11-14 | D02 | Locked: minute/hour/planet/system loops, skippable VR tutorial, varied goals; added R7 (plausible physics), R8 (modest hardware) | - | - |
+| 2026-11-14 | D03 | Locked: environment is the enemy, no combat, player can die, oxygen levels, weather damages exposed machines only | - | - |
 
 ## 5. Parking lot
 
@@ -334,6 +350,10 @@ Ideas that don't belong to a decision yet.
 - **An MCP server in the game**: Claude (or any MCP client) can read the factory state and
   maybe act in it. Cheap to add later because the simulation is headless (R3). Fun for testing
   and debugging too.
+- **Creatures and combat**: maybe later. Hard to generate procedurally and heavy on weak PCs.
+- **Hardcore mode**: one death and the world is lost.
+- **Ultra-hardcore mode**: hunger and thirst on top of hardcore. Suits/tech extend how long you
+  last (e.g. from half an hour to hours), but only temporarily.
 
 ## 6. Planned slices (small playable prototypes)
 
