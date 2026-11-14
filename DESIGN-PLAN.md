@@ -57,6 +57,14 @@ CI runs `check`, so the table can't silently break the rules.
   (terrain, colours, biomes, material appearance) or built as clean, precise, geometric models
   (machines, parts, buildings). Choose a style where precision and consistency *are* the beauty,
   never one that needs hand-painted or organic hand-sculpted assets.
+- **R7. Plausible physics.** The world follows real physics where it can, then simplifies.
+  Planet temperature comes from the star and the orbit distance (farther = colder), gravity from
+  mass and radius, travel between planets takes time based on distance. Game time may run faster
+  than real time, but the relationships stay physical. Generated parameters are *derived*, not
+  rolled independently.
+- **R8. Runs on modest hardware.** A low-spec setting that drops graphics hard but keeps the game
+  playable is part of the design, not an afterthought. Dev targets: the laptop (Iris Plus
+  graphics) at lowest settings, the desktop (Quadro K4000, i7, 32 GB DDR3) as the normal test PC.
 
 ---
 
@@ -65,7 +73,7 @@ CI runs `check`, so the table can't silently break the rules.
 | ID | Decision | Depends on | Status |
 |---|---|---|---|
 | D01 | Pillars and player fantasy | - | locked |
-| D02 | Core loop (minute / hour / planet) | D01 | open |
+| D02 | Core loop (minute / hour / planet) | D01 | locked |
 | D03 | Pressure: danger, survival, combat or none | D01, D02 | open |
 | D04 | Scale and pacing targets | D01, D02 | draft |
 | D05 | World structure | D01, D04 | draft |
@@ -129,13 +137,28 @@ can be locked.
 
 #### D02. Core loop
 - **Question:** What does the player do minute to minute, hour to hour, planet to planet?
-- **Open:** Rough sketch to confirm:
-  - *Minute:* explore, mine/scan, build and connect machines, fix bottlenecks.
-  - *Hour:* reach a new tier: new material, new machine, rebuild part of the factory.
-  - *Planet:* arrive, survey, learn local materials/constraints, bootstrap, solve the planet's
-    needs, connect it to the network, leave.
-- Where does the player spend most time: walking/exploring vs building vs planning?
-- **Lock when:** the three loops are written and each has a clear "reward".
+- **Decision (locked 2026-11-14):**
+  - **Minute:** walk/fly, scan and mine, place machines, connect belts and pipes, watch it run,
+    find the bottleneck, fix it. Must be quick and easy to understand.
+  - **Tutorial:** short and fully skippable *without affecting the game*. The player lands,
+    builds the main hub, then enters a **VR training simulation** inside the hub where the
+    tutorial happens. Done or skipped, they return to the real world at the same starting point
+    with the same resources (like Satisfactory giving you the starter items when you skip).
+  - **Hour (one tier):** a new need → find/test a fitting material → build a new production
+    line → milestone → unlock. Reward: the factory visibly grows. A tier can take longer than an
+    hour, depending on how much the player optimizes.
+  - **Planet:** arrive *almost* from scratch (sometimes with more, see D13) → survey resources
+    and hazards → bootstrap → scale up → reach the planet's goals → connect it to the network →
+    leave; the base keeps running.
+  - **Goals are varied, not only "make N of X"**: e.g. produce a power output, sustain a rate,
+    build a structure, export a stream to the network. Goals must give exploring a reason (find,
+    survey, discover), otherwise exploring a planet feels pointless. Details in D12.
+  - **System:** planets feed each other, but not all: some planets are autonomous, others
+    depend on imports.
+  - **Going back:** a new planet regularly needs more of something from an old one, so old
+    factories get expanded; a base is never really "done".
+  - **Time split:** mostly building and optimizing, a good share exploring and discovering, a
+    smaller part travel and logistics.
 
 #### D03. Pressure
 - **Question:** Is there danger (hostile environment, creatures, combat), survival meters, or
@@ -161,7 +184,8 @@ can be locked.
   the player. Start on an Earth-like planet in the home system.
 - **Open:** Real-scale or compressed planets (Astroneer-small vs huge)? How many planets per
   system? Moons, asteroid belts, gas giants (stations only)? Is the starting planet always
-  Earth-like?
+  Earth-like? Per R7, planet parameters follow from star type and orbit (the prototype still
+  rolls temperature per planet kind; update it once D05/D08 are decided).
 - **Lock when:** the hierarchy and rough sizes are fixed.
 
 ### Phase B: Progression (tested by the generator, milestone 0)
@@ -213,12 +237,15 @@ can be locked.
   need a material with property Y → only on planet Z → …
 - **Open:** Is there an end goal per system (build something big), or only the chain? Optional
   side goals? How is the next need shown to the player?
+- **Input from D02:** goal *types* must vary (output amount, power output, sustained rate,
+  structure, export stream to the network…) and must give exploration a purpose.
 
 #### D13. Carry-over
 - **Open:** What carries over between planets: knowledge of materials? Blueprints? Machine
   tiers? Proposal (DESIGN.md §4.5): global = knowledge, blueprints, transport tech; local =
   resources, constraints, recipe variants. Risk: too much carry-over → copy-paste the old base;
   too little → frustrating restart.
+- **Input from D02:** arrival is *almost* from scratch; sometimes the player brings more.
 
 #### D14. Generator validation and playtime metrics
 - **Draft** (DESIGN.md §10): every world completable (reachability, no dead ends); playtime
@@ -234,7 +261,8 @@ can be locked.
 
 #### D16. Travel between planets and systems
 - **Open:** Rockets built in the factory? Launch pads? Ships the player flies? Cutscene travel?
-  Cost of travel tied to gravity (D08).
+  Cost of travel tied to gravity (D08). Per R7, travel takes time based on distance; how game
+  time relates to real time (and what the player does meanwhile) is decided here.
 
 #### D17. Building and terrain
 - **Open:** Grid / snapping / free placement; foundations; deformable terrain (Astroneer) or not;
@@ -261,8 +289,9 @@ can be locked.
 
 #### D22. Engine and language
 - **Open:** Godot 4 (favourite; double precision builds, C# or GDScript, good on Linux) vs Unity
-  / Unreal. Where the simulation core lives (C#? Rust/C++ via GDExtension?). Laptop performance
-  (Iris Plus graphics) as a dev target.
+  / Unreal. Where the simulation core lives (C#? Rust/C++ via GDExtension?). Hardware per R8:
+  check that the Quadro K4000 (Kepler, old driver branch) runs Godot 4's Vulkan renderer; the
+  OpenGL "Compatibility" renderer is the fallback and a candidate for the low-spec setting.
 
 #### D23. Planet rendering, terrain tech, large worlds
 - **Open:** Cube-sphere heightmap vs voxel/SDF; LOD; streaming; floating origin / doubles.
@@ -296,9 +325,22 @@ can be locked.
 |---|---|---|---|---|
 | 2026-11-14 | - | Plan created | - | - |
 | 2026-11-14 | D01 | Locked: 4 ranked pillars, player fantasy; added rule R6 (art from systems) | First decision | - |
+| 2026-11-14 | D02 | Locked: minute/hour/planet/system loops, skippable VR tutorial, varied goals; added R7 (plausible physics), R8 (modest hardware) | - | - |
 
 ## 5. Parking lot
 
 Ideas that don't belong to a decision yet.
 
-- (empty)
+- **An MCP server in the game**: Claude (or any MCP client) can read the factory state and
+  maybe act in it. Cheap to add later because the simulation is headless (R3). Fun for testing
+  and debugging too.
+
+## 6. Planned slices (small playable prototypes)
+
+Each tests one part of the game on its own, before anything is combined.
+
+1. **Generator** (done as a CLI): procedural progression, `gen`.
+2. **Flat factory world:** a flat map with machines, belts and generated recipes. Is building
+   and optimizing fun?
+3. **Planet viewer:** fly around a generated star system and look at the planets up close. Do
+   planets look different and interesting (R6, R7)?
