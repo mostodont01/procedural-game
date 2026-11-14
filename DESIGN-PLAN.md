@@ -52,6 +52,11 @@ CI runs `check`, so the table can't silently break the rules.
 - **R4. Playable milestones.** Every milestone ends with something playable or testable.
 - **R5. One person can build it.** Prefer designs that are generated or systemic over designs
   that need lots of handmade content.
+- **R6. Art comes from systems, not from an artist.** The developer is an engineer, not an
+  artist: precise CAD-style modelling, not freehand. So looks are generated from parameters
+  (terrain, colours, biomes, material appearance) or built as clean, precise, geometric models
+  (machines, parts, buildings). Choose a style where precision and consistency *are* the beauty,
+  never one that needs hand-painted or organic hand-sculpted assets.
 
 ---
 
@@ -59,7 +64,7 @@ CI runs `check`, so the table can't silently break the rules.
 
 | ID | Decision | Depends on | Status |
 |---|---|---|---|
-| D01 | Pillars and player fantasy | - | draft |
+| D01 | Pillars and player fantasy | - | locked |
 | D02 | Core loop (minute / hour / planet) | D01 | open |
 | D03 | Pressure: danger, survival, combat or none | D01, D02 | open |
 | D04 | Scale and pacing targets | D01, D02 | draft |
@@ -102,14 +107,25 @@ can be locked.
 
 #### D01. Pillars and player fantasy
 - **Question:** What is the game *about*, in 3–5 pillars every later decision is checked against?
-- **Draft** (from DESIGN.md §1–3):
-  1. *Endless optimizing* of factories, where the problem keeps changing.
-  2. *Every world and planet is a new puzzle*: procedural progression, not just procedural terrain.
-  3. *Discovery*: unknown materials, unknown planets, learning by doing.
-  4. *Scale*: from one Earth-like planet to a whole system and beyond.
-- **Open:** Is "discovery" equal to "optimizing", or secondary? What's the one-sentence fantasy
-  ("a stranded engineer…", "a corporate surveyor…", no story at all)?
-- **Lock when:** pillars are short enough to reject an idea with.
+- **Decision (locked 2026-11-14).** Pillars, ranked: when two conflict, the higher one wins.
+  1. **Every planet is a puzzle.** Progression is generated, not only terrain. Planets bring new
+     decisions, not just bigger numbers. Parts may repeat from earlier planets (known materials,
+     familiar chains), but the mix and the constraints are new. Planets also *look* different,
+     because their look comes from the same parameters as their constraints (see R6).
+     *Rejects:* a hand-made tech tree; planets that are reskins.
+  2. **Optimizing is the core activity.** Most time goes into designing, connecting and improving
+     factories; exploring, travel and research feed into it. The demands grow with distance from
+     the start: later planets need far bigger output (orders of magnitude, numbers set in D04).
+     *Rejects:* long side activities unrelated to the factory.
+  3. **Discover by doing.** Materials, properties and planets are learned through play (scanning,
+     testing, building), never handed over as a wiki. You never quite know what you'll be doing
+     next. *Rejects:* a full encyclopedia from the start; research as a pure progress bar.
+  4. **Growing scale.** From one base to a network across a system, and later across systems.
+     *Rejects:* resetting the player between planets with nothing carried over.
+- **Not pillars:** combat, story, survival. Allowed only if they serve a pillar (decided in D03).
+- **Player fantasy:** *"You're a pioneer engineer sent to make a star system self-sufficient: one
+  planet at a time, each one a problem nobody has solved before."* A light frame, no scripted
+  story; the needs chain provides the goals.
 
 #### D02. Core loop
 - **Question:** What does the player do minute to minute, hour to hour, planet to planet?
@@ -133,7 +149,8 @@ can be locked.
 
 #### D04. Scale and pacing targets
 - **Draft:** 150+ h on the starting planet, 30–80 h per later planet, thousands of hours in the
-  home system.
+  home system. Required output grows with distance from the start (D01 pillar 2): far bigger
+  factories on later planets. Keep numbers as curves/ratios to tune, not fixed targets.
 - **Open:** Number of tiers per planet; time per tier; how long until the first automation (in
   Satisfactory ~1 h); how long until the first other planet (20 h? 100 h?). Is 150 h on planet 1
   too long for a tutorial? Maybe the "tutorial" part is ~10 h and the rest is optional depth.
@@ -257,8 +274,9 @@ can be locked.
 ### Phase E: Presentation
 
 #### D25. Art direction and generated visuals
-- **Open:** Style (stylized/low-poly suits a solo dev and many generated planets); how biomes,
-  materials and machines get their look from generated data.
+- **Open:** Style within R6: e.g. clean "CAD / technical" look for machines, generated
+  low-poly or stylized terrain; how biomes, materials and machines get their look from generated
+  data. Landscapes should differ per planet (D01 pillar 1), driven by planet parameters.
 
 #### D26. UI / UX
 - **Open:** Build menu, recipe browser for a recipe set the player has never seen, research
@@ -277,6 +295,7 @@ can be locked.
 | Date | Decision | Change | Why | Went stale |
 |---|---|---|---|---|
 | 2026-11-14 | - | Plan created | - | - |
+| 2026-11-14 | D01 | Locked: 4 ranked pillars, player fantasy; added rule R6 (art from systems) | First decision | - |
 
 ## 5. Parking lot
 
