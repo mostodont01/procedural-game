@@ -75,7 +75,7 @@ CI runs `check`, so the table can't silently break the rules.
 | D01 | Pillars and player fantasy | - | locked |
 | D02 | Core loop (minute / hour / planet) | D01 | locked |
 | D03 | Pressure: danger, survival, combat or none | D01, D02 | locked |
-| D04 | Scale and pacing targets | D01, D02 | draft |
+| D04 | Scale and pacing targets | D01, D02 | locked |
 | D05 | World structure | D01, D04 | draft |
 | D06 | Materials and property model | D01 | draft |
 | D07 | Resources and their distribution | D05, D06 | open |
@@ -178,16 +178,27 @@ can be locked.
   - **Weather and events come from the planet type** and can be planned for (forecast, seasons,
     long nights), no random punishment. Examples: sandstorms on desert planets, ice falling on
     ice planets, giant waves on ocean planets (per R7, from tides of a close moon or giant).
-- **Open (for D08/D17):** what happens to a weather-broken machine (repair with parts? rebuild?).
+  - **Weather damages, never destroys:** a damaged machine is repaired (D17 decides how).
 
 #### D04. Scale and pacing targets
-- **Draft:** 150+ h on the starting planet, 30–80 h per later planet, thousands of hours in the
-  home system. Required output grows with distance from the start (D01 pillar 2): far bigger
-  factories on later planets. Keep numbers as curves/ratios to tune, not fixed targets.
-- **Open:** Number of tiers per planet; time per tier; how long until the first automation (in
-  Satisfactory ~1 h); how long until the first other planet (20 h? 100 h?). Is 150 h on planet 1
-  too long for a tutorial? Maybe the "tutorial" part is ~10 h and the rest is optional depth.
-- **Lock when:** a target curve exists (tier → hours) that the generator can be measured against.
+- **Decision (locked 2026-11-14).** Numbers are rough sizes to tune, never commitments.
+  - Rough sizes from DESIGN.md stay as orientation: home planet 150+ h, later planets 30–80 h,
+    thousands of hours in the home system.
+  - **A planet's length comes from its content**, not from a target: its size, number of
+    resources, number and kind of goals, its role (autonomous or import-dependent), plus the
+    research needed to travel onward (interplanetary, later interstellar). Later planets aren't
+    automatically longer, but can be because they're bigger.
+  - **Demand grows with distance by orders of magnitude** (pillar 2); better tools grow with
+    it, so later planets need far bigger output without taking proportionally longer.
+  - Short tutorial; the first automation comes in the first session. Each tier should be
+    reachable in one or a few evening sessions, so a session ends with something visible.
+  - **First trip to space only after substantial progress** on the home planet, not early.
+  - **Time scale:** an Earth-like day lasts roughly one to two real hours; other planets' days
+    scale with their rotation (R7).
+  - **Travel takes in-game time** (e.g. days between planets, varying with planet positions).
+    The player can stay aboard and spend it (walk around the ship, pre-research the destination)
+    or skip it: the time passes in the world, but the player doesn't wait. Details in D16;
+    skipping means remote bases fast-forward as rates (D20); co-op needs a rule for it (D21).
 
 #### D05. World structure
 - **Draft** (DESIGN.md §5): galaxy → systems → planets/moons, all from one seed, generated near
@@ -278,6 +289,9 @@ can be locked.
 - **Open:** Rockets built in the factory? Launch pads? Ships the player flies? Cutscene travel?
   Cost of travel tied to gravity (D08). Per R7, travel takes time based on distance; how game
   time relates to real time (and what the player does meanwhile) is decided here.
+- **Input from D04:** trips take in-game days; the player can live through them aboard (walk
+  the ship, pre-research the destination) or skip them; travel time depends on where the
+  planets are in their orbits.
 
 #### D17. Building and terrain
 - **Open:** Grid / snapping / free placement; foundations; deformable terrain (Astroneer) or not;
@@ -342,6 +356,8 @@ can be locked.
 | 2026-11-14 | D01 | Locked: 4 ranked pillars, player fantasy; added rule R6 (art from systems) | First decision | - |
 | 2026-11-14 | D02 | Locked: minute/hour/planet/system loops, skippable VR tutorial, varied goals; added R7 (plausible physics), R8 (modest hardware) | - | - |
 | 2026-11-14 | D03 | Locked: environment is the enemy, no combat, player can die, oxygen levels, weather damages exposed machines only | - | - |
+| 2026-11-14 | D03 | Added: weather damages but never destroys; machines get repaired | Answered open point | none (D04+ not locked yet) |
+| 2026-11-14 | D04 | Locked: length from content, demand grows with distance, space after real progress, 1–2 h days, skippable travel | - | - |
 
 ## 5. Parking lot
 
