@@ -151,6 +151,25 @@ Generates:
 
 Tests + CI like my other projects.
 
+### First prototype (2026-11-14): `progen/`, see README
+
+What it does: planets with hazards → resources per planet → materials with 6 properties →
+part roles whose property requirement rises each tier ("wire: conductivity ≥ X") → fixed machine
+types with generated recipes → components and milestones per tier → a needs chain where each
+planet's hazard can only be solved by one key material from the previous planet.
+
+First findings:
+- 1000/1000 seeds valid (reachable, no dead ends, needs chain unique).
+- Rising property requirements are what make part materials change over the game; they also
+  decide which material is "the metal" (first plates: metal ~70%, ceramic ~30%, glass a few %).
+- A "use the weakest material that qualifies" rule biased everything toward ceramics: a
+  selection rule can create its own sameness. Watch for this in every rule.
+- Alloys only matter in ~50% of worlds; some roles (e.g. wire) keep one material all game.
+  Both are tuning questions for D06/D09.
+- Needs chains read like a story ("Fuhouk is corrosive → Corrosion Suit needs an inert liner →
+  only Grougryxol Resin, found on Tiopox"). Still one hazard per planet; richer chains later.
+- The playtime estimate is a placeholder tuned to the targets; it only compares seeds/planets.
+
 ## 11. Open questions
 
 - Working title.
